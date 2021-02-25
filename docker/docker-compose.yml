@@ -1,0 +1,52 @@
+version: "3"
+
+services:
+  # Nginx
+  myapp-web:
+    container_name: myapp-web
+    image: nginx:1.19
+    depends_on:
+      - myapp-php
+      - myapp-db
+    ports:
+      - "80:80"
+    volumes:
+      - "./nginx-templates:/etc/nginx/templates"
+      - "../docs:/var/www/html"
+
+  # PHP-FPM
+  myapp-php:
+    container_name: myapp-php
+    build:
+      context: ./myapp-php
+      dockerfile: Dockerfile
+    volumes:
+      - "../docs:/var/www/html"
+    env_file: ./.env
+
+
+  # MariaDB
+  myapp-db:
+    container_name: myapp-db
+    image: mariadb:10.5
+    volumes:
+      - "./initdb:/docker-entrypoint-initdb.d"
+    environment:
+      MYSQL_DATABASE: $MYSQL_DATABASE
+      MYSQL_USER: $MYSQL_USER
+      MYSQL_PASSWORD: $MYSQL_PASSWORD
+      MYSQL_ROOT_PASSWORD: $MYSQL_ROOT_PASSWORD
+
+  # phpMyAdmin
+  myapp-pma:
+    container_name: myapp-pma
+    image: phpmyadmin/phpmyadmin:5.0
+    depends_on:
+      - myapp-db
+    ports:
+      - "8080:80"
+    environment:
+      PMA_HOST: myapp-db
+      PMA_USER: $MYSQL_USER
+      PMA_PASSWORD: $MYSQL_PASSWORD
+
