@@ -19,6 +19,8 @@
     crossorigin="anonymous"></script>
   <title>index</title>
   <link rel="stylesheet" href="css/index.css">
+  <!-- Chart.js -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@2.8.0"></script>
 </head>
 
 <body>
@@ -28,7 +30,71 @@
   <main>
     <div class="container">
       <div class="row">
-        <p>mainです</p>
+        <div class="wrap-count col-lg-3">
+          <p class="like-count p-3">いいね数</p>
+          <p class="like-count-num text-right">57</p>
+          <div class="wrap-day-before">
+            <div class="day-before px-3">
+              <p>前日比</p>
+            </div>
+            <div class="day-before-num">
+              <p class="">+3</p>
+            </div>
+          </div>
+        </div>
+        <div class="wrap-count col-lg-3">
+          <p class="comment-count p-3">コメント数</p>
+          <p class="comment-count-num text-right">13</p>
+          <div class="wrap-day-before">
+            <div class="day-before px-3">
+              <p>前日比</p>
+            </div>
+            <div class="day-before-num">
+              <p class="">+3</p>
+            </div>
+          </div>
+        </div>
+        <div class="wrap-count col-lg-3">
+          <p class="media-count p-3">投稿数</p>
+          <p class="media-count-num text-right">57</p>
+          <div class="wrap-day-before">
+            <div class="day-before px-3">
+              <p>前日比</p>
+            </div>
+            <div class="day-before-num">
+              <p class="">+3</p>
+            </div>
+          </div>
+        </div>
+        <div class="wrap-count col-lg-3">
+          <p class="followers-count p-3">フォロワー数</p>
+          <p class="followers-count-num text-right">320</p>
+          <div class="wrap-day-before">
+            <div class="day-before px-3">
+              <p>前日比</p>
+            </div>
+            <div class="day-before-num">
+              <p class="">+3</p>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-6">
+          <canvas id="myChart"></canvas>
+          <script src="index.js"></script>
+        </div>
+        <div class="col-lg-6">
+          <canvas id="myChart2"></canvas>
+          <script src="index2.js"></script>
+        </div>
+        <div class="col-lg-6">
+          <canvas id="myChart3"></canvas>
+          <script src="index3.js"></script>
+        </div>
+        <div class="col-lg-6">
+          <canvas id="myChart4"></canvas>
+          <script src="index4.js"></script>
+        </div>
+
       </div>
     </div>
   </main>

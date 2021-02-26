@@ -1,12 +1,40 @@
 header{
-  background-color: red;
+  /* background-color: red; */
+  box-sizing: border-box;
+  height: 100%;
 }
 
-main{
-  background-color: blue;
+/* 各項目 */
+.like-count, .comment-count, .media-count, .followers-count{
+  font-size: 1.5rem;
+  margin-bottom: 0px;
 }
 
-footer{
-  background-color: green;
+/* 各数字 */
+.like-count-num, .comment-count-num, .media-count-num, .followers-count-num{
+  font-size: 3rem;
 }
 
+.wrap-count{
+  border:solid 2px #EEE;
+}
+
+/* ２個目移行の枠線を重ならないようにする */
+.wrap-count + .wrap-count{
+  border-left: none;
+}
+
+/* 前日比の部分をラップしている */
+.wrap-day-before{
+  color: gray;
+}
+
+/* 前日比の文字部分 */
+.day-before{
+  float: left;
+}
+
+/* 前日比の数字部分 */
+.day-before-num{
+  float: left;
+}
