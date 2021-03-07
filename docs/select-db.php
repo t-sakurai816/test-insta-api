@@ -79,7 +79,7 @@ try {
               </td>
               <td>
                 <!-- 日付 -->
-                <?php echo $row['timestamp']; ?>
+                <?php echo $row['date']; ?>
               </td>
               <?php } ?>
             </tr>
