@@ -7,7 +7,7 @@ try {
   // echo "DB接続成功";
 
 	// SQL作成
-	$sql = "SELECT * FROM `test_t.saku`";
+	$sql = "SELECT * FROM `test_t.saku` WHERE `date` >= (NOW() - INTERVAL 7 DAY)";
   // echo $sql.'<br>';
 
   // SQL実行
