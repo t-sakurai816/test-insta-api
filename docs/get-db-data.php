@@ -2,6 +2,7 @@
 echo "DBからデータ取得して各値を表示する" . "<br>";
 
 function selectDB($table){
+  // 一週間分のデータを取得
   try {
     /// DB接続を試みる
     $dsn = 'mysql:dbname=sampledb;host=myapp-db';
@@ -10,7 +11,7 @@ function selectDB($table){
   
     // SQL作成
     $sql = "SELECT $table FROM `test_t.saku` WHERE `date` >= (NOW() - INTERVAL 8 DAY)";
-    echo "SQL : " . $sql . "<br>";
+    // echo "SQL : " . $sql . "<br>";
   
     // SQL実行
     $stmt = $dbh->prepare($sql);
@@ -28,7 +29,19 @@ function selectDB($table){
 };
 
 $result = selectDB('like_num');
-for($i = 0; $i<7; $i++){
+for($i = 0; $i<8; $i++){
   $like_num[$i] = $result[$i]['like_num'];
   echo "いいね数 : " . $like_num[$i] . "<br>";
+};
+
+$result = selectDB('date');
+for($i = 0; $i<8; $i++){
+  $date[$i] = $result[$i]['date'];
+  echo "日付 : " . $date[$i] . "<br>";
+};
+
+$result = selectDB('comment_num');
+for($i = 0; $i<8; $i++){
+  $comment_num[$i] = $result[$i]['comment_num'];
+  echo "コメント数 : " . $comment_num[$i] . "<br>";
 };
