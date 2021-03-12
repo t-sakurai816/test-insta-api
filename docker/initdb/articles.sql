@@ -16,6 +16,16 @@ INSERT INTO `test_t.saku`(
 VALUES
 (
     NULL,
+    CURRENT_DATE(),
+    FLOOR(20 + RAND() * 40),
+    FLOOR(5 + RAND() * 20),
+    FLOOR(5 + RAND() * 15),
+    FLOOR(20 + RAND() * 50),
+    FLOOR(30 + RAND() * 50),
+    FLOOR(30 + RAND() * 50)
+),
+(
+    NULL,
     DATE_SUB(CURRENT_DATE, INTERVAL 1 DAY),
     FLOOR(20 + RAND() * 40),
     FLOOR(5 + RAND() * 20),
