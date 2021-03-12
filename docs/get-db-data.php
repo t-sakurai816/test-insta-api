@@ -1,7 +1,6 @@
 <?php
 echo "DBからデータ取得して各値を表示する" . "<br>";
 
-
 function selectDB($table){
   try {
     /// DB接続を試みる
