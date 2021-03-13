@@ -10,7 +10,10 @@ for($i=0; $i<count($get_tables); $i++){
   $talbe_name[$i] = $get_tables[$i]['Tables_in_sampledb'];
   // echo "テーブル名：". $talbe_name[$i] . "<br>";
 }
-$table = $_GET['account_name'];
+
+$account_name = $_GET['account_name'];
+$account_name = accountNameIsEmptyCheck($account_name);
+$table = $account_name;
 
 // 日付
 $date_result = selectDB('date', $table);
@@ -104,7 +107,7 @@ $follower_data = $follower_num[7] . ',' . $follower_num[6] . ',' . $follower_num
 <body>
   <header>
     <h1 class="text-center py-3">
-      <?php echo $table ?>
+      <?php echo $table; ?>
     </h1>
   </header>
   <main>
@@ -191,7 +194,6 @@ $follower_data = $follower_num[7] . ',' . $follower_num[6] . ',' . $follower_num
         <div class="col-lg-6">
           <canvas id="myChart"></canvas>
           <script>
-            var num = <? echo $date_num[0] ?>;
             var ctx = document.getElementById('myChart').getContext('2d');
             var chart = new Chart(ctx, {
               // The type of chart we want to create
