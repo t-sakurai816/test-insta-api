@@ -37,7 +37,7 @@ function showTable(){
   
     // SQL作成
     $sql = "show tables";
-    echo "SQL : " . $sql . "<br>";
+    // echo "SQL : " . $sql . "<br>";
   
     // SQL実行
     $stmt = $dbh->prepare($sql);
