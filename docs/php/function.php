@@ -65,15 +65,4 @@ function dayBeforeNum($today, $lastday){
 
 };
 
-function accountNameIsEmptyCheck($account_name){
-  if (empty($account_name)){
-    // echo '空です。';
-    $account_name = "アカウントを選択してください";
-    return $account_name;
-  }else{
-    // echo '空ではありません。';
-    return $account_name;
-  }
-};
-
 ?>

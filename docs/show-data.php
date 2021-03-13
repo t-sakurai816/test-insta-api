@@ -11,8 +11,26 @@ for($i=0; $i<count($get_tables); $i++){
   // echo "テーブル名：". $talbe_name[$i] . "<br>";
 }
 
+// formからアカウント名をGET
 $account_name = $_GET['account_name'];
-$account_name = accountNameIsEmptyCheck($account_name);
+// アカウント名をチェック
+if(empty($account_name)){
+  // もしアカウントが空欄だったら
+  $account_name = "アカウントを選択してください";
+}else{
+  // アカウント名になにか入っていたらそのアカウントが存在してるか確認
+  foreach($talbe_name as $value){
+    if($value === $account_name){//tableの中身とアカウント名を比較
+      // アカウント名が存在していれば
+      $account_name = $account_name;
+      break;
+    }else{
+      //アカウント名が存在していなかったら
+      $account_name = "そのアカウントは管理していません";
+    }
+  }
+}
+// tableにアカウント名を代入
 $table = $account_name;
 
 // 日付
