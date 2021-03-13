@@ -4,36 +4,44 @@ require_once('php/function.php');
 // 今日の日付
 $today = date("Y-m-d");
 
+$get_tables = showTable();
+// print_r($get_tables);
+for($i=0; $i<count($get_tables); $i++){
+  $talbe_name[$i] = $get_tables[$i]['Tables_in_sampledb'];
+  echo "テーブル名：". $talbe_name[$i] . "<br>";
+}
+$table = 'test_t.saku';
+
 // 日付
-$date_result = selectDB('date');
+$date_result = selectDB('date', $table);
 for($i = 0; $i<8; $i++){
   $date_num[$i] = $date_result[$i]['date'];
   // echo "日付 : " . $date_num[$i] . "<br>";
 };
 
 // いいね数
-$like_result = selectDB('like_num');
+$like_result = selectDB('like_num', $table);
 for($i = 0; $i<8; $i++){
   $like_num[$i] = $like_result[$i]['like_num'];
   // echo "いいね数 : " . $like_num[$i] . "<br>";
 };
 
 // コメント数
-$comment_result = selectDB('comment_num');
+$comment_result = selectDB('comment_num', $table);
 for($i = 0; $i<8; $i++){
   $comment_num[$i] = $comment_result[$i]['comment_num'];
   // echo "コメント数 : " . $comment_num[$i] . "<br>";
 };
 
 // 投稿数
-$post_result = selectDB('post_num');
+$post_result = selectDB('post_num', $table);
 for($i = 0; $i<8; $i++){
   $post_num[$i] = $post_result[$i]['post_num'];
   // echo "投稿数 : " . $post_num[$i] . "<br>";
 };
 
 // フォロワー数
-$follower_result = selectDB('follower_num');
+$follower_result = selectDB('follower_num', $table);
 for($i = 0; $i<8; $i++){
   $follower_num[$i] = $follower_result[$i]['follower_num'];
   // echo "フォロワー数 : " . $follower_num[$i] . "<br>";
@@ -95,7 +103,7 @@ $follower_data = $follower_num[7] . ',' . $follower_num[6] . ',' . $follower_num
 
 <body>
   <header>
-    <h1 class="text-center py-3"><?php echo $today ?></h1>
+    <h1 class="text-center py-3"><?php echo $table ?></h1>
   </header>
   <main>
     <div class="container">
