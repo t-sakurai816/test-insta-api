@@ -4,36 +4,65 @@ require_once('php/function.php');
 // 今日の日付
 $today = date("Y-m-d");
 
+$get_tables = showTable();
+// print_r($get_tables);
+for($i=0; $i<count($get_tables); $i++){
+  $talbe_name[$i] = $get_tables[$i]['Tables_in_sampledb'];
+  // echo "テーブル名：". $talbe_name[$i] . "<br>";
+}
+
+// formからアカウント名をGET
+$account_name = $_GET['account_name'];
+// アカウント名をチェック
+if(empty($account_name)){
+  // もしアカウントが空欄だったら
+  $account_name = "アカウントを選択してください";
+}else{
+  // アカウント名になにか入っていたらそのアカウントが存在してるか確認
+  foreach($talbe_name as $value){
+    if($value === $account_name){//tableの中身とアカウント名を比較
+      // アカウント名が存在していれば
+      $account_name = $account_name;
+      break;
+    }else{
+      //アカウント名が存在していなかったら
+      $account_name = "そのアカウントは管理していません";
+    }
+  }
+}
+// tableにアカウント名を代入
+$table = $account_name;
+
 // 日付
-$date_result = selectDB('date');
+$date_result = selectDB('date', $table);
 for($i = 0; $i<8; $i++){
   $date_num[$i] = $date_result[$i]['date'];
   // echo "日付 : " . $date_num[$i] . "<br>";
 };
 
 // いいね数
-$like_result = selectDB('like_num');
+$like_result = selectDB('like_num', $table);
 for($i = 0; $i<8; $i++){
   $like_num[$i] = $like_result[$i]['like_num'];
   // echo "いいね数 : " . $like_num[$i] . "<br>";
 };
 
 // コメント数
-$comment_result = selectDB('comment_num');
+$comment_result = selectDB('comment_num', $table);
 for($i = 0; $i<8; $i++){
   $comment_num[$i] = $comment_result[$i]['comment_num'];
   // echo "コメント数 : " . $comment_num[$i] . "<br>";
 };
 
 // 投稿数
-$post_result = selectDB('post_num');
+$post_result = selectDB('post_num', $table);
 for($i = 0; $i<8; $i++){
   $post_num[$i] = $post_result[$i]['post_num'];
   // echo "投稿数 : " . $post_num[$i] . "<br>";
 };
 
 // フォロワー数
-$follower_result = selectDB('follower_num');
+$follower_result = selectDB('follower_num', $table);
 for($i = 0; $i<8; $i++){
   $follower_num[$i] = $follower_result[$i]['follower_num'];
   // echo "フォロワー数 : " . $follower_num[$i] . "<br>";
@@ -95,63 +124,94 @@ $follower_data = $follower_num[7] . ',' . $follower_num[6] . ',' . $follower_num
 
 <body>
   <header>
-    <h1 class="text-center py-3"><?php echo $today ?></h1>
+    <h1 class="text-center py-3">
+      <?php echo $table; ?>
+    </h1>
   </header>
   <main>
     <div class="container">
       <div class="row">
+
+        <!-- アカウント選択欄 -->
+        <div class="col-lg-12 pb-3">
+          <form action="" method="get">
+            <div class="form-group">
+              <label for="">アカウント名</label>
+              <input class="form-control" type="text" name="account_name" placeholder="アカウント名を入力">
+            </div>
+            <div class="text-center">
+              <button type="submit" class="btn btn-primary">Submit</button>
+            </div>
+          </form>
+        </div>
+
         <div class="wrap-count col-lg-3">
           <p class="like-count p-3">いいね数</p>
-          <p class="like-count-num text-right"><?php  echo $like_num[0] ?></p>
+          <p class="like-count-num text-right">
+            <?php  echo $like_num[0] ?>
+          </p>
           <div class="wrap-day-before">
             <div class="day-before px-3">
               <p>前日比</p>
             </div>
             <div class="day-before-num">
-              <p class=""><? echo $like_day_before_num; ?></p>
+              <p class="">
+                <? echo $like_day_before_num; ?>
+              </p>
             </div>
           </div>
         </div>
         <div class="wrap-count col-lg-3">
           <p class="comment-count p-3">コメント数</p>
-          <p class="comment-count-num text-right"><?php  echo $comment_num[0] ?></p>
+          <p class="comment-count-num text-right">
+            <?php  echo $comment_num[0] ?>
+          </p>
           <div class="wrap-day-before">
             <div class="day-before px-3">
               <p>前日比</p>
             </div>
             <div class="day-before-num">
-              <p class=""><? echo $comment_day_before_num; ?></p>
+              <p class="">
+                <? echo $comment_day_before_num; ?>
+              </p>
             </div>
           </div>
         </div>
         <div class="wrap-count col-lg-3">
           <p class="media-count p-3">投稿数</p>
-          <p class="media-count-num text-right"><?php  echo $post_num[0] ?></p>
+          <p class="media-count-num text-right">
+            <?php  echo $post_num[0] ?>
+          </p>
           <div class="wrap-day-before">
             <div class="day-before px-3">
               <p>前日比</p>
             </div>
             <div class="day-before-num">
-              <p class=""><? echo $post_day_before_num; ?></p>
+              <p class="">
+                <? echo $post_day_before_num; ?>
+              </p>
             </div>
           </div>
         </div>
         <div class="wrap-count col-lg-3">
           <p class="followers-count p-3">フォロワー数</p>
-          <p class="followers-count-num text-right"><?php  echo $follower_num[0] ?></p>
+          <p class="followers-count-num text-right">
+            <?php  echo $follower_num[0] ?>
+          </p>
           <div class="wrap-day-before">
             <div class="day-before px-3">
               <p>前日比</p>
             </div>
             <div class="day-before-num">
-              <p class=""><? echo $follower_day_before_num; ?></p>
+              <p class="">
+                <? echo $follower_day_before_num; ?>
+              </p>
             </div>
           </div>
         </div>
         <div class="col-lg-6">
           <canvas id="myChart"></canvas>
           <script>
-            var num = <? echo $date_num[0] ?>;
             var ctx = document.getElementById('myChart').getContext('2d');
             var chart = new Chart(ctx, {
               // The type of chart we want to create
@@ -159,15 +219,15 @@ $follower_data = $follower_num[7] . ',' . $follower_num[6] . ',' . $follower_num
               // The data for our dataset
               data: {
                 labels: [<? echo $label; ?>],
-                datasets: [{
-                  label: 'いいね数',
-                  // backgroundColor: 'rgb(255, 99, 132)',
-                  borderColor: 'rgb(255, 99, 132)',
-                  data: [<? echo $like_data; ?>]
-                }]
+              datasets: [{
+                label: 'いいね数',
+                // backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 99, 132)',
+                data: [<? echo $like_data; ?>]
+            }]
               },
-              // Configuration options go here
-              options: {}
+            // Configuration options go here
+            options: { }
             });
           </script>
         </div>
@@ -181,15 +241,15 @@ $follower_data = $follower_num[7] . ',' . $follower_num[6] . ',' . $follower_num
               // The data for our dataset
               data: {
                 labels: [<? echo $label; ?>],
-                datasets: [{
-                  label: 'コメント数',
-                  // backgroundColor: 'rgb(255, 99, 132)',
-                  borderColor: 'rgb(60, 179, 113)',
-                  data: [<? echo $comment_data; ?>]
-                }]
+              datasets: [{
+                label: 'コメント数',
+                // backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(60, 179, 113)',
+                data: [<? echo $comment_data; ?>]
+            }]
               },
-              // Configuration options go here
-              options: {}
+            // Configuration options go here
+            options: { }
             });
           </script>
         </div>
@@ -203,15 +263,15 @@ $follower_data = $follower_num[7] . ',' . $follower_num[6] . ',' . $follower_num
               // The data for our dataset
               data: {
                 labels: [<? echo $label; ?>],
-                datasets: [{
-                  label: '投稿数',
-                  // backgroundColor: 'rgb(255, 99, 132)',
-                  borderColor: 'rgb(100, 149, 237)',
-                  data: [<? echo $post_data; ?>]
-                }]
+              datasets: [{
+                label: '投稿数',
+                // backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(100, 149, 237)',
+                data: [<? echo $post_data; ?>]
+            }]
               },
-              // Configuration options go here
-              options: {}
+            // Configuration options go here
+            options: { }
             });
           </script>
         </div>
@@ -225,15 +285,15 @@ $follower_data = $follower_num[7] . ',' . $follower_num[6] . ',' . $follower_num
               // The data for our dataset
               data: {
                 labels: [<? echo $label; ?>],
-                datasets: [{
-                  label: 'フォロワー数',
-                  // backgroundColor: 'rgb(255, 99, 132)',
-                  borderColor: 'rgb(255, 140, 0)',
-                  data: [<? echo $follower_data; ?>]
-                }]
+              datasets: [{
+                label: 'フォロワー数',
+                // backgroundColor: 'rgb(255, 99, 132)',
+                borderColor: 'rgb(255, 140, 0)',
+                data: [<? echo $follower_data; ?>]
+            }]
               },
-              // Configuration options go here
-              options: {}
+            // Configuration options go here
+            options: { }
             });
           </script>
         </div>
